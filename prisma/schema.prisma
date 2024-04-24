@@ -18,6 +18,7 @@ model Admin {
   email     String @unique
   password  String
   full_name String
+  // role      Role
 }
 
 model News {
@@ -43,4 +44,8 @@ model Programmes {
   duration  Int
   startTime DateTime
   image     String
+}
+
+enum Role {
+  admin
 }

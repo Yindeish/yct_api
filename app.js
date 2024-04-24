@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import { BASE_URL, EVENTS_URL, MODE, NEWS_URL, PORT, PROGRAMMES_URL, AUTH_URL } from './constants/base.constants.js';
 import { news_route } from './news/news.route.js';
 import { auth_route } from './auth/auth.route.js';
+import { authorize_page } from './auth/auth.middleware.js';
+import { authorize_admin } from './admin/admin.middleware.js';
 
 dotenv.config();
 
@@ -22,7 +24,7 @@ app.use(cookieParser());
 // Middlewares
 
 // Endpoints
-app.use(`${NEWS_URL}`, news_route);
+app.use(`${NEWS_URL}`, authorize_page, authorize_admin, news_route);
 app.use(`${AUTH_URL}`, auth_route);
 // Endpoints
 

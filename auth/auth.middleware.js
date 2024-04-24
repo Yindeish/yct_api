@@ -1,8 +1,9 @@
+import { res_msg } from '../utils/response.js';
+
 const authorize_page = async (req, res, next) => {
     if (!req.cookies.token || req.cookies.token === '') {
-        res.status(401).json({ msg: 'Unauthorized!', code: 401 })
+        res_msg({ msg: 'Unauthorized!', code: 401, res })
     } else {
-        console.log('req.cookies.token', req.cookies.token, req.cookies);
         next();
     }
 }
