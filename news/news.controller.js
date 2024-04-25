@@ -1,6 +1,9 @@
 import { create, delete_by_id, update_by_id, find_by_id, get_all } from '../utils/prisma.js';
 import { res_msg, server_err } from '../utils/response.js';
 import { model_names } from '../constants/base.constants.js'
+import fs from 'fs';
+import path from 'path';
+import { request } from "http";
 
 const create_a_news = async (req, res) => {
     const { title, content, image } = req.body;
@@ -20,6 +23,59 @@ const create_a_news = async (req, res) => {
         server_err({ error, res })
     }
 }
+
+const upload_news_img = async (req, res) => {
+    const { admin } = req;
+    const { news_id } = req.params;
+
+    try {
+        if (!req.file) {
+            status_msg({ code: 400, res, msg: 'No file uploaded', res });
+        }
+        const uploadedImage = req.file;
+        const uniqueFilename = `avatar_${admin?.UserID}${path.extname(uploadedImage.originalname)}`;
+        const destinationPath = path.join('uploads/', uniqueFilename);
+        fs.renameSync(uploadedImage.path, destinationPath);
+
+        res_msg({ msg: 'Image uploaded successfully', code: 201, res })
+    } catch (error) {
+        server_err({ error, res })
+    }
+}
+
+// const create_a_news = async (req, res) => {
+//     const { title, content } = req.body;
+//     const image = req.file;
+
+//     try {
+//         if (!image) {
+//             return status_msg({ code: 400, res, msg: 'No file uploaded' });
+//         }
+
+//         const uniqueFilename = `avatar_${req.admin?.UserID}${path.extname(image.originalname)}`;
+//         const destinationPath = path.join('uploads/', uniqueFilename);
+//         fs.renameSync(image.path, destinationPath);
+
+//         const saved_news = await create({
+//             data: {
+//                 title,
+//                 content,
+//                 image: uniqueFilename,
+//             },
+//             model_name: 'News',
+//         });
+
+//         res.json({ saved_news })
+
+//         // if (saved_news) {
+//         //     res_msg({ code: 201, msg: 'News was successfully created', res });
+//         // } else {
+//         //     res_msg({ code: 400, msg: 'Error in creating news', res });
+//         // }
+//     } catch (error) {
+//         server_err({ error, res });
+//     }
+// };
 
 const get_a_news = async (req, res) => {
     const { news_id } = req.params;
@@ -72,4 +128,4 @@ const get_all_news = async (req, res) => {
     }
 }
 
-export { create_a_news, get_a_news, edit_a_news, delete_a_news, get_all_news }
+export { create_a_news, get_a_news, edit_a_news, delete_a_news, get_all_news, upload_news_img }
