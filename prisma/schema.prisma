@@ -18,7 +18,7 @@ model Admin {
   email     String @unique
   password  String
   full_name String
-  // role      Role
+  role      Role
 }
 
 model News {

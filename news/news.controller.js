@@ -4,6 +4,7 @@ import { model_names } from '../constants/base.constants.js'
 import fs from 'fs';
 import path from 'path';
 import { request } from "http";
+import prisma from '../mySQL/db.config.js';
 
 const create_a_news = async (req, res) => {
     const { title, content, image } = req.body;
@@ -119,7 +120,8 @@ const delete_a_news = async (req, res) => {
 
 const get_all_news = async (req, res) => {
     try {
-        const all_news = await get_all({ model_name: model_names.news });
+        // const all_news = await get_all({ model_name: model_names.news });
+        const all_news = await prisma.news.findMany({})
 
         if (all_news) res_msg({ code: 200, msg: 'News got!', res, data: all_news });
         else res_msg({ code: 400, msg: 'Error in getting all news!', res });
