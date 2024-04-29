@@ -17,8 +17,7 @@ const find_by_id = async ({ model_name, id }) => {
 }
 
 const get_all = async ({ model_name }) => {
-    // const items = await prisma?.[model_name]?.findMany({ where: {} });
-    const items = await prisma?.['admin']?.findMany();
+    const items = await prisma?.[model_name]?.findMany({});
 
     return items;
 }

@@ -41,7 +41,8 @@ const upload = multer({ storage: storage });
 
 // Endpoints
 // authorize_admin,
-app.use(`${NEWS_URL}`, authorize_page, upload.single('image'), news_route);
+// app.use(`${NEWS_URL}`, authorize_page, upload.single('image'), news_route);
+app.use(`${NEWS_URL}`, upload.single('image'), news_route);
 app.use(`${AUTH_URL}`, auth_route);
 // Endpoints
 

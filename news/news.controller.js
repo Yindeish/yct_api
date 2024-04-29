@@ -120,8 +120,7 @@ const delete_a_news = async (req, res) => {
 
 const get_all_news = async (req, res) => {
     try {
-        // const all_news = await get_all({ model_name: model_names.news });
-        const all_news = await prisma.news.findMany({})
+        const all_news = await get_all({ model_name: model_names.news });
 
         if (all_news) res_msg({ code: 200, msg: 'News got!', res, data: all_news });
         else res_msg({ code: 400, msg: 'Error in getting all news!', res });
