@@ -7,7 +7,7 @@ import { create, find_by_id, find_by_key, get_all } from '../utils/prisma.js';
 import { model_names } from '../constants/base.constants.js'
 
 const signup = async (req, res) => {
-    const { email, password, full_name } = req.body;
+    const { email, password, full_name, role } = req.body;
 
     if (!(email || password || full_name)) res_msg({ msg: 'Fill in all credentials!', code: 400 })
 
@@ -24,7 +24,8 @@ const signup = async (req, res) => {
                 data: {
                     email,
                     password: hashed_password,
-                    full_name
+                    full_name,
+                    role
                 }, model_name: 'Admin'
             });
 

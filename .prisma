@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model Admin {
+    id        Int    @id @default(autoincrement())
+    email     String @unique
+    password  String
+    full_name String
+    role      Role
+}
+
+model Administration {
+    id         Int      @id @default(autoincrement())
+    name       String
+    title      String
+    image      String
+    about      String
+    created_at DateTime @default(now())
+}
+
+model News {
+    id          Int      @id @default(autoincrement())
+    title       String
+    content     String
+    image       String
+    created_at  DateTime @default(now())
+    expiry_date DateTime
+}
+
+model Events {
+    id          Int      @id @default(autoincrement())
+    name        String
+    start_date  DateTime
+    end_date    DateTime
+    image       String
+    expiry_date DateTime
+}
+
+model Programmes {
+    id         Int      @id @default(autoincrement())
+    name       String
+    duration   Int
+    start_date DateTime
+    end_date   DateTime
+    image      String
+}
+
+enum Role {
+    admin
+    super_admin
+}

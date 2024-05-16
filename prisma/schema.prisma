@@ -21,31 +21,43 @@ model Admin {
   role      Role
 }
 
+model Administration {
+  id         Int      @id @default(autoincrement())
+  name       String
+  title      String
+  image      String
+  about      String
+  created_at DateTime @default(now())
+}
+
 model News {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String
-  image     String
-  createdAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String
+  image       String
+  created_at  DateTime @default(now())
+  expiry_date DateTime
 }
 
 model Events {
-  id        Int      @id @default(autoincrement())
-  name      String
-  location  String
-  startDate DateTime
-  endDate   DateTime
-  image     String
+  id          Int      @id @default(autoincrement())
+  name        String
+  start_date  DateTime
+  end_date    DateTime
+  image       String
+  expiry_date DateTime
 }
 
 model Programmes {
-  id        Int      @id @default(autoincrement())
-  name      String
-  duration  Int
-  startTime DateTime
-  image     String
+  id         Int      @id @default(autoincrement())
+  name       String
+  duration   Int
+  start_date DateTime
+  end_date   DateTime
+  image      String
 }
 
 enum Role {
   admin
+  super_admin
 }

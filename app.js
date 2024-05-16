@@ -2,11 +2,11 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { BASE_URL, EVENTS_URL, MODE, NEWS_URL, PORT, PROGRAMMES_URL, AUTH_URL } from './constants/base.constants.js';
-import { news_route } from './news/news.route.js';
+import { BASE_URL, EVENTS_URL, MODE, ADMIN_URL, PORT, PROGRAMMES_URL, AUTH_URL, NEWS_IMGS_FOLDER, UPLOADED_IMGS_BASE_URL, BASE_FOLDER } from './constants/base.constants.js';
 import { auth_route } from './auth/auth.route.js';
 import { authorize_page } from './auth/auth.middleware.js';
 import { authorize_admin } from './admin/admin.middleware.js';
+import { admin_route } from './admin/admin.route.js';
 import multer from 'multer';
 
 dotenv.config();
@@ -22,12 +22,11 @@ app.use(cors({
     credentials: true,
 }));
 app.use(cookieParser());
-app.use('/uploads', express.static('uploads'));
+app.use(`/${NEWS_IMGS_FOLDER}`, express.static(`${NEWS_IMGS_FOLDER}`));
 
-// Multer configuration
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './');
+        cb(null, `../${BASE_FOLDER}`);
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname);
@@ -40,16 +39,15 @@ const upload = multer({ storage: storage });
 // Middlewares
 
 // Endpoints
-// authorize_admin,
-// app.use(`${NEWS_URL}`, authorize_page, upload.single('image'), news_route);
-app.use(`${NEWS_URL}`, upload.single('image'), news_route);
+// app.use(`${ADMIN_URL}`, authorize_page, authorize_admin,upload.single('image'), admin_route);
 app.use(`${AUTH_URL}`, auth_route);
+app.use(`${ADMIN_URL}`, upload.single('image'), admin_route);
 // Endpoints
 
-app.get('/api/v0', (req, res) => {
-    res.json('Server running..')
+app.get(`${BASE_URL}`, (req, res) => {
+    res.json({ SERVER_IS_RUNNING__: 'Server running..', BASE_URL });
 })
 
 app.listen(PORT, () => {
-    console.log({ BASE_URL });
+    console.log(`SERVER_IS_RUNNING__on_ BASE_URL: ${BASE_URL} `);
 })
