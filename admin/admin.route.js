@@ -5,11 +5,11 @@ import { ADMINISTRATION_URL, EVENTS_URL, NEWS_URL, PROGRAMMES_URL } from "../con
 const admin_route = Router();
 
 // NEWS
-admin_route.post(`${NEWS_URL}/upload`, upload_news);
-admin_route.get(`${NEWS_URL}/:news_id`, get_a_news);
-admin_route.patch(`${NEWS_URL}/:news_id/edit`, edit_a_news);
-admin_route.delete(`${NEWS_URL}/:news_id/delete`, delete_a_news);
-admin_route.get(`${NEWS_URL}/news/all`, get_all_news);
+admin_route.post(`${NEWS_URL}/single/upload`, upload_news);
+admin_route.get(`${NEWS_URL}/single/:news_id`, get_a_news);
+admin_route.patch(`${NEWS_URL}/single/:news_id/edit`, edit_a_news);
+admin_route.delete(`${NEWS_URL}/single/:news_id/delete`, delete_a_news);
+admin_route.get(`${NEWS_URL}/multiple/news/all`, get_all_news);
 // NEWS
 
 // EVENTS
