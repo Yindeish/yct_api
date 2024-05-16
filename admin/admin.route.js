@@ -13,19 +13,19 @@ admin_route.get(`${NEWS_URL}/multiple/news/all`, get_all_news);
 // NEWS
 
 // EVENTS
-admin_route.post(`${EVENTS_URL}/upload`, upload_event);
-admin_route.get(`${EVENTS_URL}/:event_id`, get_event);
-admin_route.patch(`${EVENTS_URL}/:event_id/edit`, edit_event);
-admin_route.delete(`${EVENTS_URL}/:event_id/delete`, delete_event);
-admin_route.get(`${EVENTS_URL}/event/all`, get_all_events);
+admin_route.post(`${EVENTS_URL}/single/upload`, upload_event);
+admin_route.get(`${EVENTS_URL}/single/:event_id`, get_event);
+admin_route.patch(`${EVENTS_URL}/single/:event_id/edit`, edit_event);
+admin_route.delete(`${EVENTS_URL}/single/:event_id/delete`, delete_event);
+admin_route.get(`${EVENTS_URL}/multiple/event/all`, get_all_events);
 // EVENTS
 
 // PROGRAMMES
-admin_route.post(`${PROGRAMMES_URL}/create`, create_programme);
-admin_route.get(`${PROGRAMMES_URL}/:programme_id`, get_programme);
-admin_route.patch(`${PROGRAMMES_URL}/:programme_id/edit`, edit_programme);
-admin_route.delete(`${PROGRAMMES_URL}/:programme_id/delete`, delete_programme);
-admin_route.get(`${PROGRAMMES_URL}/programme/all`, get_all_programmes);
+admin_route.post(`${PROGRAMMES_URL}/single/create`, create_programme);
+admin_route.get(`${PROGRAMMES_URL}/single/:programme_id`, get_programme);
+admin_route.patch(`${PROGRAMMES_URL}/single/:programme_id/edit`, edit_programme);
+admin_route.delete(`${PROGRAMMES_URL}/single/:programme_id/delete`, delete_programme);
+admin_route.get(`${PROGRAMMES_URL}/multiple/programme/all`, get_all_programmes);
 // PROGRAMMES
 
 // ADMINISTRATIONS
